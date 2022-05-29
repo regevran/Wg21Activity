@@ -2,6 +2,24 @@
 #include <compare>
 #include <vector>
 #include <string>
+#include <list>
+
+/*
+    static const partial_ordering less;
+    static const partial_ordering equivalent;
+    static const partial_ordering greater;
+    static const partial_ordering unordered;
+
+    static const weak_ordering less;
+    static const weak_ordering equivalent;
+    static const weak_ordering greater;
+
+    static const strong_ordering less;
+    static const strong_ordering equal;
+    static const strong_ordering equivalent;
+    static const strong_ordering greater;
+*/
+
 
 struct tree {};
 
@@ -47,9 +65,9 @@ int main()
     auto ret1 = std::lexicographical_compare_three_way(
             forest1.begin(), forest1.end(),
             forest2.begin(), forest2.end(),
-            cmp_tree );
+            cmp_tree);
 
-    static_assert(std::is_same<decltype(ret1), std::partial_ordering>::value);
+    static_assert(std::is_same_v<decltype(ret1), std::partial_ordering>);
 
     std::vector<apple_tree> area_a
     {
@@ -58,6 +76,8 @@ int main()
         {3,1},{3,2},{3,3},{3,4}
     };
 
+    std::list<apple_tree*> green_apples = {&area_a[0], &area_a[1], &area_a[2]};
+    std::list<apple_tree*> picked_apples = {&area_a[0], &area_a[3], &area_a[4]};
 
 
     return 0;
