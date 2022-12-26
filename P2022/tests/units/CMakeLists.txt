@@ -28,6 +28,5 @@ set_target_properties(
 target_link_libraries(
     ${PROJECT_NAME} 
     PRIVATE Catch2::Catch2
-    PRIVATE OctSafetyAlgo 
 )
 
