@@ -1,9 +1,10 @@
 
 
-#include "header.hpp"
+#include "3way.hpp"
+#include "catch2/catch_all.hpp"
 
-
-int main()
+TEST_CASE("nop")
 {
-    return 0;
 }
+
+
