@@ -1,0 +1,61 @@
+
+Ours:
+
+ template<
+     input_iterator I1, sentinel_for<I1> S1,
+     input_iterator I2, sentinel_for<I2> S2,
+     class Proj1 = identity, 
+     class Proj2 = identity,
+     class Comp = compare_three_way
+ >
+ requires
+     three_way_comparable_with< 
+         projected<I1,Proj1>, projected<I2,Proj2> 
+     >
+ constexpr auto
+     ranges::lexicographical_compare_three_way( 
+         I1 first1, S1 last1, I2 first2, S2 last2, Comp comp = {}, Proj1 = {}, Proj2 = {}
+     ) -> std::common_comparison_category_t<
+                 decltype(comp(*first1, *first2)), std::strong_ordering>;
+
+
+1
+Let N be the minimum integer such that (first1 + N == s1 or first2 + N == s2). Let E(n) be comp(proj1(*(first1 + n)), proj2(*(first2 + n))).
+
+2 *Removed*
+
+3
+Returns: E(i), where i is the smallest integer in [0, N) such that E(i) != 0 is true, or E(N) if no such integer exists.
+
+4
+Complexity: At most N applications of comp.
+
+5 *Removed*
+
+Theirs:
+
+template<class InputIterator1, class InputIterator2, class Cmp>
+  constexpr auto
+    lexicographical_compare_three_way(InputIterator1 b1, InputIterator1 e1,
+                                      InputIterator2 b2, InputIterator2 e2,
+                                      Cmp comp)
+      -> decltype(comp(*b1, *b2));
+1
+Let N be min(e1 - b1, e2 - b2). Let E(n) be comp(*(b1 + n), *(b2 + n)).
+
+2
+Mandates: decltype(comp(*b1, *b2)) is a comparison category type.
+
+3
+Returns: E(i), where i is the smallest integer in [0, N) such that E(i) != 0 is true, or (e1 - b1) <=> (e2 - b2) if no such integer exists.
+
+4
+Complexity: At most N applications of comp.
+
+
+template<class InputIterator1, class InputIterator2>
+  constexpr auto
+    lexicographical_compare_three_way(InputIterator1 b1, InputIterator1 e1,
+                                      InputIterator2 b2, InputIterator2 e2);
+5
+Effects: Equivalent to: return lexicographical_compare_three_way(b1, e1, b2, e2, compare_three_way());
