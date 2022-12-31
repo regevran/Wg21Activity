@@ -13,6 +13,7 @@ set(CMAKE_BUILD_TYPE Debug)
 # the tests
 add_executable(
     ${PROJECT_NAME} 
+    nop.cpp
     t1.cpp
 )
 
