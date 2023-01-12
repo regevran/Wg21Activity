@@ -14,12 +14,8 @@ namespace std::ranges
         class Proj2 = identity,
         class Comp = compare_three_way
     >
-    requires
-        three_way_comparable_with< 
-            projected<I1,Proj1>, projected<I2,Proj2> 
-        >
     constexpr auto
-        lexicographical_compare_three_way_KKK( 
+        lexicographical_compare_three_way( 
             I1 first1, 
             S1 last1, 
             I2 first2, 
@@ -40,7 +36,7 @@ namespace std::ranges
                 return strong_ordering::greater;
             }
 
-            if (auto cmp = comp(poroj1(*first1), proj2(*first2)); 
+            if (auto cmp = comp(proj1(*first1), proj2(*first2)); 
                 cmp != 0 ) 
             {
                 return cmp;
