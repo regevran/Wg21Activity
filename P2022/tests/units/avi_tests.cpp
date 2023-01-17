@@ -74,8 +74,8 @@ TEST_CASE("test with custom compare function")
 
     auto res =
         std::lexicographical_compare_three_way(
-            std::begin(l1), std::end(l1),
-            std::begin(l2), std::end(l2),
+            std::begin(lowerCaseNums), std::end(lowerCaseNums),
+            std::begin(upperCaseNums), std::end(upperCaseNums),
             caseInsensitiveCmp
         );
 
@@ -173,7 +173,7 @@ TEST_CASE("test with custom projections and custom compare function")
     auto cmp = [](int l1Elem, int l2Elem) { return --l1Elem <=> ++l2Elem; };
 
     auto res =
-        std::lexicographical_compare_three_way(
+        std::ranges::lexicographical_compare_three_way(
             std::begin(l1), std::end(l1),
             std::begin(l2), std::end(l2),
             cmp,
