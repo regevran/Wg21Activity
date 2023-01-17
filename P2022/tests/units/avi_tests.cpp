@@ -30,7 +30,7 @@ TEST_CASE("test with default projections and compare function")
     }
 
     auto res =
-        std::lexicographical_compare_three_way(
+        std::ranges::lexicographical_compare_three_way(
             std::begin(l1), std::end(l1),
             std::begin(l2), std::end(l2)
         );
@@ -73,7 +73,7 @@ TEST_CASE("test with custom compare function")
     };
 
     auto res =
-        std::lexicographical_compare_three_way(
+        std::ranges::lexicographical_compare_three_way(
             std::begin(lowerCaseNums), std::end(lowerCaseNums),
             std::begin(upperCaseNums), std::end(upperCaseNums),
             caseInsensitiveCmp
@@ -132,7 +132,7 @@ TEST_CASE("test with custom compare function which returns std::partial_ordering
     };
 
     auto res =
-        std::lexicographical_compare_three_way(
+        std::ranges::lexicographical_compare_three_way(
             std::begin(l1), std::end(l1),
             std::begin(l2), std::end(l2),
             myCmp
