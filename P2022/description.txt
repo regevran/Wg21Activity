@@ -2,8 +2,8 @@
 Ours:
 
  template<
-     input_iterator I1, sentinel_for<I1> S1,
-     input_iterator I2, sentinel_for<I2> S2,
+     input_iterator I1, sized_sentinel_for<I1> S1,
+     input_iterator I2, sized_sentinel_for<I2> S2,
      class Proj1 = identity, 
      class Proj2 = identity,
      class Comp = compare_three_way
@@ -19,18 +19,14 @@ Ours:
                  decltype(comp(*first1, *first2)), std::strong_ordering>;
 
 
-1
+1.
 Let N be the minimum integer such that (first1 + N == s1 or first2 + N == s2). Let E(n) be comp(proj1(*(first1 + n)), proj2(*(first2 + n))).
 
-2 *Removed*
+2.
+Returns: E(i), where i is the smallest integer in [0, N) such that E(i) != 0 is true, or (s1 - first <=> s2 - first2) if no such integer exists.
 
-3
-Returns: E(i), where i is the smallest integer in [0, N) such that E(i) != 0 is true, or E(N) if no such integer exists.
-
-4
+3.
 Complexity: At most N applications of comp.
-
-5 *Removed*
 
 Theirs:
 
