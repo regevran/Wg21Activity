@@ -6,9 +6,7 @@
 
 namespace std {
     template <typename T, typename... U>
-    concept any_of = requires {
-            requires std::disjunction<std::is_same<T, U>...>::value;
-    };
+    concept any_of = (std::same_as<T, U> or ...); //expsition-only
 }
 
 namespace std::ranges
@@ -16,7 +14,7 @@ namespace std::ranges
     template<std::input_iterator I1, std::input_iterator I2,
             class Proj1, class Proj2, class Comp>
     concept three_way_res_check = requires std::any_of<invoke_result_t<Comp, std::projected<I1, Proj1>,
-            std::projected<I2, Proj2>>, std::strong_ordering, std::weak_ordering, std::partial_ordering>
+            std::projected<I2, Proj2>>, std::strong_ordering, std::weak_ordering, std::partial_ordering> //expsition-only
 
     template<input_iterator I1, sentinel_for<I1> S1,
             input_iterator I2, sentinel_for<I2> S2,
