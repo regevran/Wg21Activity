@@ -90,39 +90,44 @@ namespace std::ranges
         // GCC 11 implementation with the
         // note: See PR 94006
         return (first2 == last2) <=> true; 
-    } 
+    }
 
-    template<
-        ranges::input_range R1,
-        ranges::input_range R2,
-        class Comp = compare_three_way,
-        class Proj1 = identity, 
-        class Proj2 = identity
-    >
-    requires
-        is_lexicographical_compare_three_way_result_ordering<
-            iterator_t<R1>, iterator_t<R2>, Comp, Proj1, Proj2
-        > 
-    constexpr auto
-        lexicographical_compare_three_way( 
-            R1&& r1,
-            R2&& r2,
-            Comp comp = {},
-            Proj1 proj1 = {}, 
-            Proj2 proj2 = {}
-    ) -> common_comparison_category_t<
-                decltype(
-                    comp(proj1(*ranges::begin(r1)), proj2(*ranges::begin(r2)))
-                ), 
+    struct lexicographical_compare_three_way_fn
+    {
+        template<
+            ranges::input_range R1,
+            ranges::input_range R2,
+            class Comp = compare_three_way,
+            class Proj1 = identity,
+            class Proj2 = identity
+        >
+        requires
+            is_lexicographical_compare_three_way_result_ordering<
+                iterator_t<R1>, iterator_t<R2>, Comp, Proj1, Proj2
+            >
+        constexpr auto
+            operator(
+                R1&& r1,
+                R2&& r2,
+                Comp comp = {},
+                Proj1 proj1 = {},
+                Proj2 proj2 = {}
+        ) -> common_comparison_category_t<
+            decltype(
+                comp(proj1(*ranges::begin(r1)), proj2(*ranges::begin(r2)))
+                ),
                 strong_ordering
-         >
-     {
-         return lexicographical_compare_three_way(
-                 ranges::begin(r1), ranges::end(r1),
-                 ranges::begin(r2), ranges::end(r2),
-                 move(comp),
-                 move(proj1),
-                 move(proj2));
-     }
+            >
+        {
+            return lexicographical_compare_three_way(
+                ranges::begin(r1), ranges::end(r1),
+                ranges::begin(r2), ranges::end(r2),
+                move(comp),
+                move(proj1),
+                move(proj2));
+        }
+
+        inline constexpr lexicographical_compare_three_way_fn lexicographical_compare_three_way{};
+    };
 }
 
