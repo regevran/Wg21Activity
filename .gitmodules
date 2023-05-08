@@ -1,5 +1,0 @@
-[submodule "pdf-generator/"]
-	path = pdf-generator
-	branch = master
-	url = https://github.com/MorTD/wg21
-
