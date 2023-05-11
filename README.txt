@@ -4,6 +4,7 @@ Docker
 
 
 // clone this repository
+// start Docker Desktop
 // in the directory where you cloned this repository, open up a terminal 
 
 
