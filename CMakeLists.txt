@@ -6,4 +6,4 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(DockerDevEnv docker_dev_env.cpp)
 
 # Add the directory containing catch.hpp to the include paths
-target_include_directories(MyExecutable PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(DockerDevEnv PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
