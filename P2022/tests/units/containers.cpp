@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include "catch2/catch_all.hpp"
+#include "3way.hpp" 
 
 TEST_CASE("containers")
 {
@@ -12,6 +13,14 @@ TEST_CASE("containers")
         std::lexicographical_compare_three_way(
             std::begin(v1), std::end(v1),
             std::begin(v2), std::end(v2),
+            std::compare_three_way{}
+        );
+
+    CHECK(res == std::strong_ordering::less);
+
+    res = 
+        std::ranges::lexicographical_compare_three_way(
+            v1, v2,
             std::compare_three_way{}
         );
 
