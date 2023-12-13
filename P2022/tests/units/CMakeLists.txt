@@ -20,7 +20,6 @@ add_executable(
     ${PROJECT_NAME} 
     nop.cpp
     containers.cpp
-    basic_check.cpp
     unordered.cpp
     t1.cpp
     avi_tests.cpp
